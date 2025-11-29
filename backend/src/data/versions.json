@@ -1,0 +1,39 @@
+[
+  {
+    "id": "fa4f7133-57db-49c6-88e7-b71b09f7cf53",
+    "timestamp": "2025-11-29T18:52:41.870Z",
+    "addedWords": [
+      "hello"
+    ],
+    "removedWords": [],
+    "oldLength": 0,
+    "newLength": 5,
+    "fullText": "hello"
+  },
+  {
+    "id": "fa958cb0-8482-427f-bf3a-b04ff868f38e",
+    "timestamp": "2025-11-29T18:53:03.604Z",
+    "addedWords": [
+      "pod"
+    ],
+    "removedWords": [
+      "hello"
+    ],
+    "oldLength": 5,
+    "newLength": 4,
+    "fullText": "pod\n"
+  },
+  {
+    "id": "42376524-f037-441d-a4bc-b5404e5bc409",
+    "timestamp": "2025-11-29T18:53:59.477Z",
+    "addedWords": [
+      "erwhgjdfhgkjldafhgkjadgh;adfjg"
+    ],
+    "removedWords": [
+      "pod"
+    ],
+    "oldLength": 4,
+    "newLength": 30,
+    "fullText": "erwhgjdfhgkjldafhgkjadgh;adfjg"
+  }
+]
