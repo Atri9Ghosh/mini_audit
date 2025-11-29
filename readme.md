@@ -30,11 +30,6 @@ A lightweight full‑stack app that tracks text edits at the word level and stor
 The Mini Audit Trail Generator is a small web app designed to demonstrate and test a word-level diff algorithm. Every time a user saves a document, the app creates a new version containing a timestamp, unique ID, counts and lists of words added/removed, and the full text.
 
 This project is useful as a reference for editors, educational demos, and testing of text-differencing approaches.
-
-## Demo
-
-(Insert screenshots or hosted demo URL here)
-
 ---
 
 ## Features
