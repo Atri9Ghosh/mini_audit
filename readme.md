@@ -1,170 +1,134 @@
+
 Mini Audit Trail Generator
 
-Track every change with word-level version history.
+A lightweight full‑stack app that tracks text edits at the word level and stores version history. Built with React (Vite) for the frontend and Node.js + Express for the backend.
 
-A full-stack project built with React (Vite) and Node.js + Express, featuring a diff engine that shows every added and removed word between versions of text.
+---
 
-📝 Overview
+## Table of contents
 
-The Mini Audit Trail Generator is a web application that automatically creates a version history every time a user edits and saves text. Each version includes:
+- [Overview](#overview)
+- [Demo](#demo)
+- [Features](#features)
+- [Tech stack](#tech-stack)
+- [Folder structure](#folder-structure)
+- [Prerequisites](#prerequisites)
+- [Getting started (local development)](#getting-started-local-development)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+- [API](#api)
+- [Data storage](#data-storage)
+- [Deployment (quick notes)](#deployment-quick-notes)
+- [Future ideas](#future-ideas)
+- [Contributing](#contributing)
+- [License](#license)
 
-Words added
+---
 
-Words removed
+## Overview
 
-Length difference
+The Mini Audit Trail Generator is a small web app designed to demonstrate and test a word-level diff algorithm. Every time a user saves a document, the app creates a new version containing a timestamp, unique ID, counts and lists of words added/removed, and the full text.
 
-Timestamp
+This project is useful as a reference for editors, educational demos, and testing of text-differencing approaches.
 
-Unique version ID
+## Demo
 
-This system is useful for:
+(Insert screenshots or hosted demo URL here)
 
-Document comparisons
+---
 
-Editors & writers
+## Features
 
-Change tracking
+- Word‑level diff algorithm that detects added and removed words
+- Version history with timestamp and UUID per version
+- Simple, clean UI using React + Vite
+- Lightweight REST API with Node.js + Express
+- Persistent JSON file storage (`versions.json`) for quick testing
 
-Demo/testing of diff algorithms
+---
 
-Intern evaluation tasks
+## Tech stack
 
-✨ Features
-🔹 Frontend (React)
+- Frontend: React, Vite
+- Backend: Node.js, Express
+- Utilities: CORS, morgan, fs-extra, uuid
 
-Beautiful dark UI
+---
 
-Real-time text editor
+## Folder structure
 
-Save Version button
-
-Dynamic version list
-
-Highlights added & removed words
-
-Character count
-
-Smart state management with custom hooks
-
-🔹 Backend (Node.js)
-
-REST API with Express
-
-JSON file storage (persistent)
-
-Automatic diff detection
-
-Timestamps + UUIDs
-
-Proper folder architecture
-
-CORS-enabled
-
-🔹 Diff Engine
-
-Word-level comparison
-
-Identifies added words
-
-Identifies removed words
-
-Removes duplicates
-
-Regex-based splitting
-
-🏗️ Architecture
-Frontend (React)
-  ↓ REST API
-Backend (Node.js + Express)
-  ↓ File I/O
-versions.json (persistent storage)
-
-📁 Folder Structure
 mini-audit-trail/
-│
-├── frontend/              # React (Vite)
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── layout/
-│   │   │   ├── editor/
-│   │   │   └── history/
-│   │   ├── hooks/
-│   │   ├── services/
-│   │   ├── utils/
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── styles.css
-│   ├── index.html
-│   └── package.json
-│
-└── backend/               # Node.js + Express API
-    ├── src/
-    │   ├── controllers/
-    │   ├── routes/
-    │   ├── services/
-    │   ├── data/
-    │   │   └── versions.json
-    ├── server.js
-    └── package.json
 
-🛠️ Tech Stack
-Frontend
+- backend/ — Node.js + Express API
+  - server.js — entry point
+  - src/
+    - controllers/
+    - routes/
+    - services/
+    - data/ — `versions.json` persists version history
+- frontend/ — Vite + React
+  - src/
+  - index.html
 
-React (Vite)
+---
 
-Custom Hooks
+## Prerequisites
 
-Fetch API
+- Node.js 18+ (or later)
+- npm
 
-CSS
+---
 
-Backend
+## Getting started (local development)
 
-Node.js
+1. Clone the repository
 
-Express.js
-
-uuid
-
-fs-extra
-
-morgan
-
-CORS
-
-⚙️ Setup Instructions
-1. Clone Repo
+```bash
 git clone https://github.com/your-username/mini-audit-trail.git
 cd mini-audit-trail
+```
 
-🖥️ Frontend Setup (Vite + React)
+### Backend
+
+1. Install dependencies and run the backend
+
+```powershell
+cd backend
+npm install
+node server.js
+```
+
+- The backend listens on port 5000 by default (or the value of `PORT` env var).
+- Base API: http://localhost:5000/api
+
+> Note: this repository doesn't include an `npm start` script in the backend package by default, so run `node server.js` to start it.
+
+### Frontend
+
+1. Install dependencies and run the frontend
+
+```bash
 cd frontend
 npm install
 npm run dev
+```
 
+- The frontend runs by default on the Vite dev server (usually http://localhost:5173).
+- To make the frontend talk to a locally running backend, set the API URL in your frontend app or set `VITE_API_BASE_URL` when deploying.
 
-Frontend runs at:
+---
 
-http://localhost:5173
+## API
 
-🟦 Backend Setup (Node.js + Express)
-cd backend
-npm install
-npm start
+Base path: `/api` (e.g., http://localhost:5000/api)
 
+### GET /api/versions
 
-Backend runs at:
+Returns the list of all saved versions.
 
-http://localhost:5000
+Response example:
 
-🌐 API Documentation
-GET /api/versions
-
-Returns list of all saved versions.
-
-Response:
-
+```json
 [
   {
     "id": "uuid",
@@ -176,89 +140,73 @@ Response:
     "fullText": "Hello world"
   }
 ]
+```
 
-POST /api/save-version
+### POST /api/save-version
 
-Saves a new version.
+Saves a new version. The request body should contain the updated text.
 
-Request Body:
-{
-  "text": "Your updated content here"
-}
+Request example:
 
-Response:
-{
-  "id": "uuid",
-  "timestamp": "2025-01-01T12:00:00Z",
-  "addedWords": [],
-  "removedWords": [],
-  "oldLength": 100,
-  "newLength": 110,
-  "fullText": "..."
-}
+```json
+{ "text": "Your updated content here" }
+```
 
-🌍 Deployment Guide
-🟩 Deploy Backend on Render
+Response: the newly created version object (same structure as above).
 
-Go to Render.com → New Web Service
+---
 
-Select your GitHub repository
+## Data storage
 
-Root directory: backend
+- Versions are stored in `backend/src/data/versions.json` as an array of versions.
+- This is a simple, file-based storage system intended for demos and local development only.
 
-Build command: npm install
+---
 
-Start command: node server.js
+## Deployment (quick notes)
 
-After deploy, copy your API URL:
+- If you want to deploy the backend as a web service (Render, Heroku, etc.), make sure you set a `PORT` environment variable or use the default 5000.
+- For the frontend (Vercel, Netlify), set `VITE_API_BASE_URL` to your backend URL.
 
-https://your-backend.onrender.com/api
+Example deploy values:
 
-🟦 Deploy Frontend on Vercel
+- Backend (Render): Set root directory to `backend`, run `node server.js` as the start command.
+- Frontend (Vercel): Set root to `frontend` and add `VITE_API_BASE_URL` env var to connect to the API.
 
-Go to Vercel → Import GitHub Repo
+---
 
-Set root directory to frontend
+## Future ideas
 
-Environment Variables → Add:
+- Add an endpoint to restore a version
+- Add richer inline diff highlighting in the editor
+- Support rich text (HTML/Markdown)
+- Replace file storage with a database (SQLite/MongoDB/Postgres)
+- Add authentication and user scopes
 
-VITE_API_BASE_URL = https://your-backend.onrender.com/api
+---
 
+## Contributing
 
-Deploy
+Contributions are welcome — open an issue or submit a pull request with a concise description of your changes.
 
-Visit:
+Before opening a PR, please:
+- Follow consistent formatting and lint rules
+- Open an issue if you are making a major architectural change
 
-https://your-frontend.vercel.app
+---
 
-📸 Screenshots
+## License
 
-(Add your images here)
+MIT — see LICENSE
 
-Example:
+---
 
-![App Screenshot](./screenshots/ui.png)
+## Author / Contact
 
-🚀 Future Enhancements
+Create an `ISSUES` or contact in the repo for questions or help.
 
-Restore to previous version
+---
 
-Highlight diff inside editor
+Thanks for trying out the Mini Audit Trail Generator!
 
-Rich text support
-
-Database storage (MongoDB / PostgreSQL)
-
-Authentication
-
-Pagination
-
-🤝 Contributing
-
-Contributions are welcome!
-Open a PR or raise an issue.
-
-📄 License
-
-MIT License.
-Free to use for personal or commercial projects.
+(Replace placeholders like `your-username` and `API URLs` with real values when publishing.)
