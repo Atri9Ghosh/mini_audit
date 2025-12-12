@@ -199,9 +199,3 @@ MIT — see LICENSE
 ## Author / Contact
 
 Create an `ISSUES` or contact in the repo for questions or help.
-
----
-
-Thanks for trying out the Mini Audit Trail Generator!
-
-(Replace placeholders like `your-username` and `API URLs` with real values when publishing.)
